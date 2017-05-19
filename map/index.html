@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="http://knockoutjs.com/downloads/knockout-3.4.2.js"></script>
+
+    <!-- styles put here, but you can include a CSS file and reference it instead! -->
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #map {
+            height: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <script>
+        var map;
+//load map
+        function initMap() {
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 28.644800,
+                    lng: 77.216721
+                },
+                zoom: 13,
+                mapTypeControl: false
+            });
+
+            ko.applyBindings(new model());
+        };
+        //error message
+        function errorMap()
+        {
+            document.getElementById('map').innerHTML = "Error. Map didn't load";
+        }
+    </script>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand" href="#">Places to Visit in New Delhi</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+
+                <form class="navbar-form navbar-left" id="target">
+                    <div class="input-group">
+                        <input id="searchin" type="text" class="form-control" placeholder="Search" data-bind="value: inputValue, valueUpdate:'afterkeydown', event:{keyup: filtersearch}">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" id="other">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="another">Locations<span class="caret"></span></a>
+                        <ul class="dropdown-menu list" data-bind="foreach:places">
+                            <li>
+                                <a href="#" data-bind="visible:show, event:{click:$parent.selectAll},text:title"></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <input id="show-listings" type="button" value="Show Listings" class="btn btn-danger navbar-btn btn-sm">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <input id="hide-listings" type="button" value="Hide Listings" class="btn btn-danger navbar-btn btn-sm">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <input id="toggle-drawing" type="button" value="Drawing Tools" class="btn btn-danger navbar-btn btn-sm">
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav> 
+    <div id="map" class="container"></div>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing&key=AIzaSyDFCArWE9m2vYlUZ2ld1zCuhFYKKY6YtLw&v=3&callback=initMap"></script>
+    <script>
+    </script>
+
+</body>
+
+</html>
